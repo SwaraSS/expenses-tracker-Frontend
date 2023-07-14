@@ -26,7 +26,8 @@ function App() {
      <Route path="/incomes" element={<PrivateProtectRoute component={IncomeList } />} />
       <Route path="/edit-content" element={<PrivateProtectRoute component={EditContent } />} />
       <Route path="/edit-expense" element={<PrivateProtectRoute component={EditExpense }/> }/> 
-     <Route path="/dashboard" element={<AdminRoute component={Dashboard }/> }/> 
+     {/* <Route path="/dashboard" element={<AdminRoute component={Dashboard }/> }/>  */}
+     <Route path="/dashboard" element={<PrivateProtectRoute component={Dashboard }/> }/> 
      <Route path="/not-found" element={<NotAdmin />} />
       <Route path="/add-income" element={<PrivateProtectRoute component={AddIncome } />} />
       <Route path="/add-expense" element={<PrivateProtectRoute component={AddExpense } />} />

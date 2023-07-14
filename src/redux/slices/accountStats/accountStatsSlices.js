@@ -16,7 +16,7 @@ export const fetchAccountStatsAction = createAsyncThunk(
     };
     //http call
     try {
-      const { data } = await axios.get(`${baseURL}/api/stats`, config);
+      const { data } = await axios.get(`${baseURL}/accountStats`, config);
       return data;
     } catch (error) {
       if (!error.response) {
@@ -36,21 +36,21 @@ const incomeSlices = createSlice({
   extraReducers: builder => {
     //fetch all
     builder.addCase(fetchAccountStatsAction.pending, (state, action) => {
-     // state.statsLoading = true;
+      state.statsLoading = true;
       state.appErr = undefined;
       state.serverErr = undefined;
     });
     builder.addCase(fetchAccountStatsAction.fulfilled, (state, action) => {
-      //state.statsLoading = false;
+      state.statsLoading = false;
       state.stats = action?.payload;
       state.appErr = undefined;
       state.serverErr = undefined;
       state.isIncomeCreated = false;
     });
     builder.addCase(fetchAccountStatsAction.rejected, (state, action) => {
-     // state.statsLoading = false;
-      state.appErr = action?.payload?.message;
-      state.serverErr = action?.error?.message;
+      state.statsLoading = false;
+      state.appErr = action?.payload?.msg;
+      state.serverErr = action?.error?.msg;
     });
   },
 });

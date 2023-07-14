@@ -1,13 +1,13 @@
-//import { Doughnut, Pie } from "react-chartjs-2";
-
 import React from "react";
+import { Doughnut, Pie } from 'react-chartjs-2';
+
 
 const DataGrap = ({ income, expenses }) => {
   const data = {
     labels: ["Expenses", "Income"],
     datasets: [
       {
-        label: "# expenses",
+        label: ["Expense", "Income"],
         data: [expenses, income],
         backgroundColor: [
           "rgba(255, 99, 132, 0.2)",
@@ -44,7 +44,7 @@ const DataGrap = ({ income, expenses }) => {
       <div>
         <h3> Transactions</h3>
       </div>
-      {/* <Pie data={data} /> */}
+      <Pie data={data} />
     </div>
   );
 };

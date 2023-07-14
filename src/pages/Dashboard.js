@@ -9,17 +9,18 @@ const Dashboard = () => {
 
   useEffect(() => {
     dispatch(fetchAccountStatsAction());
-  }, []);
+  }, [dispatch]);
+ 
   const statistics = useSelector(state => state.statistics);
-  //const { statsLoading, appErr, serverErr, stats } = statistics;
-  //console.log({ statsLoading, appErr, serverErr, stats });
-  //const exp = stats?.expensesStats[0];
-  //const inc = stats?.incomeStats[0];
+  const { statsLoading, appErr, serverErr, stats } = statistics;
+  console.log({ statsLoading, appErr, serverErr, stats });
+  const exp = stats?.expensesStats[0];
+  const inc = stats?.incomeStats[0];
 
   return (
     <>
-      {/* <h1>NET: {stats?.profit}</h1>
-      <DashboardData
+      {/* <h1>NET: {stats?.profit}</h1> */}
+      {/* <DashboardData
         numOfTransExp={exp?.totalRecords}
         avgExp={exp?.averageExp}
         totalExp={exp?.totalExp}
@@ -32,29 +33,29 @@ const Dashboard = () => {
         maxInc={inc?.maxInc}
       /> */}
 
-      {/* {statsLoading ? (
+      {statsLoading ? (
         <LoadingComponent />
-      ) : appErr || serverErr ? ( */}
+      ) : appErr || serverErr ? (
         <div class="alert alert-danger" role="alert">
-          {/* {serverErr} {appErr} */}
+          {serverErr} {appErr}
         </div>
-      {/* ) : ( */}
+       ) : ( 
         <>
           <DashboardData
-            // numOfTransExp={exp?.totalRecords}
-            // avgExp={exp?.averageExp}
-            // totalExp={exp?.totalExp}
-            // minExp={exp?.minExp}
-            // maxExp={exp?.maxExp}
-            // numOfTransInc={inc?.totalRecords}
-            // avgInc={inc?.averageInc}
-            // totalInc={inc?.totalInc}
-            // minInc={inc?.minInc}
-            // maxInc={inc?.maxInc}
-            // netProfit={stats?.profit}
+            numOfTransExp={exp?.totalRecords}
+            avgExp={exp?.averageExp}
+            totalExp={exp?.totalExp}
+            minExp={exp?.minExp}
+            maxExp={exp?.maxExp}
+            numOfTransInc={inc?.totalRecords}
+            avgInc={inc?.averageInc}
+            totalInc={inc?.totalInc}
+            minInc={inc?.minInc}
+            maxInc={inc?.maxInc}
+            netProfit={stats?.profit}
           />
         </>
-      {/* )} */}
+      )}
     </>
   );
 };
