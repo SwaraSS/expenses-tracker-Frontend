@@ -37,7 +37,7 @@ const DashboardData = ({
           }}
         >
           {/* Grpah */}
-          <DataGrap /*income={totalInc} expenses={totalExp}*/ />
+          <DataGrap income={totalInc} expenses={totalExp} />
         </div>
         {/* Net Profit */}
         <div style={{ textAlign: "center", margin: "20px" }}>

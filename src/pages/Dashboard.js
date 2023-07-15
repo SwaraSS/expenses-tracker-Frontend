@@ -19,19 +19,6 @@ const Dashboard = () => {
 
   return (
     <>
-      {/* <h1>NET: {stats?.profit}</h1> */}
-      {/* <DashboardData
-        numOfTransExp={exp?.totalRecords}
-        avgExp={exp?.averageExp}
-        totalExp={exp?.totalExp}
-        minExp={exp?.minExp}
-        maxExp={exp?.maxExp}
-        numOfTransInc={inc?.totalRecords}
-        avgInc={inc?.averageInc}
-        totalInc={inc?.totalInc}
-        minInc={inc?.minInc}
-        maxInc={inc?.maxInc}
-      /> */}
 
       {statsLoading ? (
         <LoadingComponent />
