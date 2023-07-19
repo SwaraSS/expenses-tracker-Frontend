@@ -10,7 +10,7 @@ import { useNavigate } from "react-router-dom";
 const formSchema = Yup.object({
   title: Yup.string().required("Title is required"),
   description: Yup.string().required("Description is required"),
-  amount: Yup.number().required("Amount is required"),
+  amount: Yup.number().required("Amount is required").positive("Amount must be a positive number"),
 });
 
 const AddIncome = () => {
