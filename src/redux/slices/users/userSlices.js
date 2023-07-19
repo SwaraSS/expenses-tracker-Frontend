@@ -92,7 +92,7 @@ export const userProfileAction = createAsyncThunk(
     };
     //http call
     try {
-      const { data } = await axios.get(`${baseURL}/api/users/profile/`, config);
+      const { data } = await axios.get(`${baseURL}/users/profile/`, config);
       return data;
     } catch (error) {
       if (!error?.response) {
@@ -118,7 +118,7 @@ export const updateUserAction = createAsyncThunk(
     //http call
     try {
       const { data } = await axios.put(
-        `${baseURL}/api/users/${userData?.id}`,
+        `${baseURL}/users/update`,
         {
           lastname: userData?.lastname,
           firstname: userData?.firstname,
@@ -167,7 +167,7 @@ const usersSlices = createSlice({
           state.registered = action?.payload;
           state.userAppErr = undefined;
           state.userServerErr = undefined;
-          state.isRegistered = false;
+          state.isRegistered = true;
         });
         builder.addCase(registerUserAction.rejected, (state, action) => {
           state.userLoading = false;

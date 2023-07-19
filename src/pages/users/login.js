@@ -37,7 +37,6 @@ const Login = () => {
   //Redirect
   useEffect(() => {
     if (isLogin) {
-     // navigate(nav, "profile", undefined);
        nav("/profile");
     }
   }, [isLogin]);

@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import * as Yup from "yup";
 import { addNewExpAction } from "../../redux/slices/expenses/expensesAction";
 import DisabledButton from "../../components/DisabledButton";
+import { useNavigate } from "react-router-dom";
 
 // Form validation
 const formSchema = Yup.object({
@@ -14,6 +15,9 @@ const formSchema = Yup.object({
 
 const AddExpense = () => {
   const dispatch = useDispatch();
+  const nav = useNavigate();
+  const expenses = useSelector(state => state?.expenses);
+  const { expLoading, expAppErr, expServerErr, isExpCreated } = expenses;
   const formik = useFormik({
     initialValues: {
       title: "",
@@ -28,10 +32,10 @@ const AddExpense = () => {
 
   // Redirect
   useEffect(() => {
-    // if (isExpCreated) {
-    //   nav( "user-profile-expenses", undefined);
-    // }
-  }, [/isExpCreated/]);
+    if (isExpCreated) {
+      nav( "/user-expenses", undefined);
+    }
+  }, [isExpCreated]);
 
   return (
     <>
@@ -43,6 +47,12 @@ const AddExpense = () => {
                 <form onSubmit={formik.handleSubmit}>
                   <span className="text-muted">Expense</span>
                   <h2 className="mb-4 fw-light">Record New Expense</h2>
+                  {/* Display income Err */}
+                  {expServerErr || expAppErr ? (
+                    <div className="alert alert-danger" role="alert">
+                      {expServerErr} {expAppErr}
+                    </div>
+                  ) : null}
                   <div className="mb-3 input-group">
                     <select
                       value={formik.values.title}
@@ -93,10 +103,13 @@ const AddExpense = () => {
                   <div className="text-danger mb-2">
                     {formik.touched.amount && formik.errors.amount}
                   </div>
-                  <DisabledButton />
+                  {expLoading ? (
+                    <DisabledButton />
+                  ) : (
                   <button type="submit" className="btn btn-danger mb-4 w-100">
                     Record Expense
                   </button>
+                  )}
                 </form>
               </div>
             </div>

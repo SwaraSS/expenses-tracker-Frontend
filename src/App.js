@@ -5,7 +5,6 @@ import Login from './pages/users/login';
 import Register from './pages/users/Register';
 import AddExpense from './pages/expense/AddExpense';
 import AddIncome from './pages/income/AddIncome';
-import Profile from './pages/users/Profile';
 import Navbar from './components/Navigation/Navbar';
 import PrivateProtectRoute from './components/Navigation/PrivateProtectRoute';
 import NotAdmin from './components/NotAdmin';
@@ -15,6 +14,11 @@ import ExpensesList from './pages/expense/ExpensesList';
 import EditContent from './components/EditContent';
 import EditExpense from './pages/expense/EditExpense';
 import IncomeList from './pages/income/incomeList';
+import Profile from './pages/users/Profile/Profile';
+import UserProfileExpList from './pages/users/Profile/UserProfileExpList';
+import UserProfileIncList from './pages/users/Profile/UserProfileIncList';
+import UpdateProfile from './pages/users/Profile/UpdateProfile';
+
 
 function App() {
   return (
@@ -32,6 +36,9 @@ function App() {
       <Route path="/add-income" element={<PrivateProtectRoute component={AddIncome } />} />
       <Route path="/add-expense" element={<PrivateProtectRoute component={AddExpense } />} />
       <Route path="/profile" element={<PrivateProtectRoute component={Profile } />} />
+      <Route path="/user-expenses" element={<PrivateProtectRoute component={UserProfileExpList } />} />
+      <Route path="/user-income" element={<PrivateProtectRoute component={UserProfileIncList } />} />
+      <Route path="/update-profile" element={<PrivateProtectRoute component={UpdateProfile } />} />
      <Route path="/login" element={<Login />} />
      <Route path="/register" element={<Register />} />
      </Routes>

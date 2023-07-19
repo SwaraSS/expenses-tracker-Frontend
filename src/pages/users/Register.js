@@ -41,8 +41,8 @@ const Register = ( {history} ) => {
   //Redirect
   setTimeout(() => {
     if (isRegistered) 
-    nav("/profile");
-  }, 3000);
+    nav("/login");
+  },[isRegistered], 3000);
   return (
     <section className="position-relative py-5 overflow-hidden vh-100">
       <div className="d-none d-md-block position-absolute top-0 start-0 bg-dark w-75 h-100"></div>

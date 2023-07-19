@@ -1,55 +1,55 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-//import { useHistory } from "react-router-dom";
-//import { userProfileAction } from "../../../redux/slices/users/usersSlices";
-//import calTransaction from "../../../utils/accStatistics";
-//import DashboardData from "../../../components/Dashboard/DashboardData";
-//import navigate from "../../../utils/navigate";
-//import UserProfileStats from "./UserProfileStats";
-//import DataGraph from "../../../components/Dashboard/DataGrap";
+import { userProfileAction } from "../../../redux/slices/users/userSlices";
+import { useNavigate } from "react-router-dom";
+import calTransaction from "../../../utils/accStatistics";
+import DataGraph from "../../../components/Dashboard/DataGrap";
+import UserProfileStats from "./UserProfileStats";
 //import useDateFormatter from "../../../hooks/useDateFormatter";
-//import LoadingComponent from "../../../components/Loading/Loading";
-//import ErrorDisplayMessage from "../../../components/ErrorDisplayMessage";
+import LoadingComponent from "../../../components/Loading/Loading";
+import ErrorDisplayMessage from "../../../components/ErrorDisplayMessage";
 
 const Profile = () => {
-  //const [expResult, setExpResult] = useState([]);
-  //const [incResult, setIncResult] = useState([]);
+  const [expResult, setExpResult] = useState([]);
+  const [incResult, setIncResult] = useState([]);
   const dispatch = useDispatch();
   useEffect(() => {
-    //dispatch(/*userProfileAction()*/);
-  }, []);
+    dispatch(userProfileAction());
+  }, [dispatch]);
   //history
- // const history = useHistory();
+  const nav = useNavigate();
   const users = useSelector(state => state?.users);
-  const { profile/*, userLoading, userAppErr, userServerErr, userAuth */} = users;
+  const { profile, userLoading, userAppErr, userServerErr, userAuth } = users;
 
-  //income
-//   useEffect(() => {
-//     if (profile?.expenses) {
-//       const expenses = calTransaction(profile?.expenses);
-//       setExpResult(expenses);
-//     }
-//     if (profile?.income) {
-//       const income = calTransaction(profile?.income);
-//       setIncResult(income);
-//     }
-//   }, [profile?.income]);
+  // //income
+  useEffect(() => {
+    if (profile?.expenses) {
+       const expenses =profile?.expenses && calTransaction(profile?.expenses);
+       setExpResult(expenses);
+     }
+     if (profile?.income) {
+       const income =profile?.income && calTransaction(profile?.income);
+       setIncResult(income);
+     }
+   }, [profile?.income, profile?.expenses]);
 
   // console.log(results);
-  // const income = profile?.income;
-  // const totalIncome = income
-  //   ?.map(inc => inc?.amount)
-  //   .reduce((acc, curr) => {
-  //     return acc + curr;
-  //   }, 0);
+  const income = profile?.income;
+  const totalInc = income
+    ?.map(inc => inc?.amount)
+    .reduce((acc, curr) => {
+      return acc + curr;
+    }, 0);
+    //console.log(totalIncome);
 
-  // //Total Expenses
-  // const expenses = profile?.expenses;
-  // const totalExp = expenses
-  //   ?.map(inc => inc?.amount)
-  //   .reduce((acc, curr) => {
-  //     return acc + curr;
-  //   }, 0);
+  //Total Expenses
+  const expenses = profile?.expenses;
+  const totalExp = expenses
+    ?.map(inc => inc?.amount)
+    .reduce((acc, curr) => {
+      return acc + curr;
+    }, 0);
+    //console.log(totalExp);
 
   // //Average expenses
   // const averageExp = totalExp / 2;
@@ -64,7 +64,7 @@ const Profile = () => {
 
   return (
     <>
-      {/* {userLoading ? (
+      {userLoading ? (
         <LoadingComponent />
       ) : userAppErr || userServerErr ? (
         <>
@@ -72,7 +72,7 @@ const Profile = () => {
             {userServerErr} {userAppErr}
           </ErrorDisplayMessage>
         </>
-      ) : ( */}
+      ) : (
         <section className="py-5">
           <div className="container">
             <div className="position-relative p-8 border rounded-2">
@@ -96,22 +96,22 @@ const Profile = () => {
                   <p className="mb-0">{profile?.email}</p>
                   <p className="mb-0">Date Joined: 12-Jan-1999</p>
                   <button
-                   // onClick={() => navigate(history, "update-profile", profile)}
+                    onClick={() => nav("/update-profile",{state:{user: userAuth}})}
                     className="btn"
                   >
                     Edit Profile
                     <i class="bi bi-pen fs-3 m-3 text-primary"></i>
                   </button>
                 </div>
-                {/* <DataGraph
+                <DataGraph
                   income={incResult?.sumTotal}
                   expenses={expResult?.sumTotal}
-                /> */}
+                />
               </div>
 
               <p className="mb-8"> </p>
 
-              {/* <UserProfileStats
+              <UserProfileStats
                 numOfTransExp={profile?.expenses?.length}
                 avgExp={expResult?.avg}
                 totalExp={expResult?.sumTotal}
@@ -122,16 +122,16 @@ const Profile = () => {
                 totalInc={incResult?.sumTotal}
                 minInc={incResult?.min}
                 maxInc={incResult?.max}
-              /> */}
+              />
               <div className="d-flex align-items-center justify-content-center">
                 <button
-                  //onClick={() => navigate(history, "user-profile-expenses", "")}
+                  onClick={() => nav("/user-expenses")}
                   className="btn me-4 w-100 btn-danger d-flex align-items-center justify-content-center"
                 >
                   <span>View Expenses History</span>
                 </button>
                 <button
-                 // onClick={() => navigate(history, "user-profile-income", "")}
+                  onClick={() => nav("/user-income")}
                   className="btn w-100 btn-outline-success d-flex align-items-center justify-content-center"
                 >
                   <span>View Income History</span>
@@ -140,7 +140,7 @@ const Profile = () => {
             </div>
           </div>
         </section>
-      {/* )} */}
+       )} 
     </>
   );
 };

@@ -9,6 +9,7 @@ import DisabledButton from "../../components/DisabledButton";
 import { useLocation } from "react-router-dom";
 import ErrorDisplayMessage from "../../components/ErrorDisplayMessage";
 import SuccessMessage from "../../components/SuccessMessage";
+import { useNavigate } from "react-router-dom";
 
 //Form validation
 const formSchema = Yup.object({
@@ -18,6 +19,7 @@ const formSchema = Yup.object({
 });
 const EditExpense = ({ /*location */} ) => {
     const dispatch = useDispatch();
+    const nav = useNavigate();
     const location = useLocation();
     const {expense} = location.state;
     const expenses = useSelector((state) => state?.expenses);
@@ -41,14 +43,14 @@ const EditExpense = ({ /*location */} ) => {
 
  
   //redirect
-  // useEffect(() => {
-  //   if (isExpUpdated) {
-  //     navigate("user-profile-expenses", undefined);
-  //   }
-  //   // if (isIncUpdated) {
-  //   //   navigate("user-profile-income", undefined);
-  //   // }
-  // }, [isExpUpdated, /*isIncUpdated*/]);
+  useEffect(() => {
+    if (isExpUpdated) {
+      nav("/user-expenses", undefined);
+    }
+    // if (isIncUpdated) {
+    //   nav("/user-income", undefined);
+    // }
+  }, [isExpUpdated, /*isIncUpdated*/]);
   return (
     <section className="py-5 bg-secondary vh-100">
       <div className="container text-center">

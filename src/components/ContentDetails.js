@@ -1,14 +1,12 @@
 import React from "react";
 import moment from 'moment';
 import { useNavigate } from "react-router-dom";
-import DateFormatter from "../utils/dateFormatter";
+import useCurrencyFormatter from "../hooks/useCurrencyFormatter";
 
 //import navigate from "../utils/navigate";
 
 const ContentDetails = ({ item }) => {
   const nav = useNavigate();
-  //const currentDate = new Date();
- // const formattedDate = DateFormatter(currentDate.toISOString());
   return (
     <>
       <tr className="align-middle text-dark">
@@ -21,7 +19,7 @@ const ContentDetails = ({ item }) => {
         /*) */}
         <td className="p-6">{item?.title}</td>
         <td className="p-6">{item?.description}</td>
-        <td className="p-6">{item?.amount}</td>
+        <td className="p-6">{useCurrencyFormatter("INR", item?.amount)}</td>
         <td className="p-6">{moment(item?.createdAt).format('DD-MM-YYYY')}</td>
         <td className="p-6">
           <button

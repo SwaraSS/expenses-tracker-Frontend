@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import * as Yup from "yup";
 import { addNewIncomeAction } from "../../redux/slices/income/incomeSlices";
 import DisabledButton from "../../components/DisabledButton";
+import { useNavigate } from "react-router-dom";
 
 // Form validation
 const formSchema = Yup.object({
@@ -14,6 +15,8 @@ const formSchema = Yup.object({
 
 const AddIncome = () => {
   const dispatch = useDispatch();
+  const nav = useNavigate();
+
   const income = useSelector((state) => state?.income);
   const { incLoading, incAppErr, incServerErr, isIncCreated } = income;
 
@@ -31,10 +34,10 @@ const AddIncome = () => {
 
   // Redirect
   useEffect(() => {
-    // if (isIncCreated) {
-    //   nav("user-profile-income", undefined);
-    // }
-  }, [/isIncCreated/]);
+    if (isIncCreated) {
+      nav("/user-income", undefined);
+    }
+  }, [isIncCreated]);
 
   return (
     <>
